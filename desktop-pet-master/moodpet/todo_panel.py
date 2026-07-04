@@ -188,7 +188,8 @@ class TodoPanelWindow(QWidget):
         self.input.setPlaceholderText("＋  添加新任务...")
         self.input.setStyleSheet(
             "QLineEdit { background-color: #fffaf2; border: 2px dashed #bda890; border-radius: 7px;"
-            "font-family: 'Microsoft YaHei'; font-size: 14pt; font-weight: 900; color: #10151b; padding-left: 18px; }"
+            "border-right: 3px dashed #92765c; border-bottom: 3px dashed #92765c;"
+            "font-family: 'Microsoft YaHei'; font-size: 13pt; font-weight: 900; color: #10151b; padding-left: 18px; }"
         )
         self.input.returnPressed.connect(self._add_task)
         self.add_button = PixelButton("添加任务", self.left_panel, MINT, "white")
@@ -251,14 +252,27 @@ class TodoPanelWindow(QWidget):
         make_label(recommend, "番茄钟专注 25 分钟", 60, 28, 176, 24, 10, 900)
         make_label(recommend, "专注一段，效率更高", 60, 51, 166, 20, 8, 700)
         self.focus_button = PixelButton("开始专注", recommend, MINT, "white")
-        self.focus_button.setGeometry(244, 36, 108, 38)
+        self.focus_button.setGeometry(232, 36, 120, 38)
+        self.focus_button.setStyleSheet(
+            "QPushButton {"
+            f"background-color: {MINT}; color: white;"
+            "border: 2px solid #0f6f55; border-right: 4px solid #07523f; border-bottom: 4px solid #07523f;"
+            "border-radius: 5px; font-family: 'Microsoft YaHei'; font-size: 10pt; font-weight: 900;"
+            "padding: 4px 6px;"
+            "}"
+            "QPushButton:hover { background-color: #22d9b4; }"
+            "QPushButton:pressed { padding-left: 8px; padding-top: 6px; }"
+        )
         self.focus_button.clicked.connect(self._focus_done)
 
     def _create_row(self, item: TodoItem, y: int) -> QFrame:
         row = QFrame(self.list_panel)
         row.setGeometry(0, y, 820, 56)
         bg = "#edf8e6" if item.completed else "#fffaf2"
-        row.setStyleSheet(f"background-color: {bg}; border: 1px solid #e1bd91; border-radius: 7px;")
+        row.setStyleSheet(
+            f"background-color: {bg}; border: 1px solid #e1bd91;"
+            "border-right: 3px solid #d0a06d; border-bottom: 3px solid #d0a06d; border-radius: 7px;"
+        )
 
         check = QPushButton("✓" if item.completed else "", row)
         check.setGeometry(20, 14, 30, 30)
@@ -271,7 +285,7 @@ class TodoPanelWindow(QWidget):
         )
         check.clicked.connect(lambda checked=False, item_id=item.id: self._toggle_completed(item_id))
 
-        title = make_label(row, item.title, 70, 12, 252, 32, 12, 900)
+        title = make_label(row, item.title, 70, 12, 270, 32, 12, 900)
         if item.completed:
             title.setStyleSheet(
                 "color: #222; border: none; font-family: 'Microsoft YaHei'; font-size: 12pt; font-weight: 900;"
@@ -279,18 +293,19 @@ class TodoPanelWindow(QWidget):
 
         chip_color = CATEGORY_COLORS.get(item.category, BLUE)
         chip = QLabel(item.category, row)
-        chip.setGeometry(330, 16, 54, 26)
+        chip.setGeometry(350, 16, 54, 26)
         chip.setAlignment(Qt.AlignCenter)
         chip.setStyleSheet(
             f"background-color: #fff7e9; color: {chip_color}; border: 1px solid {chip_color};"
             "border-radius: 4px; font-family: 'Microsoft YaHei'; font-size: 10pt; font-weight: 900;"
         )
 
-        status = item.completed_at + " 完成" if item.completed else f"◷  {item.due_time} 截止"
-        make_label(row, status, 610, 12, 130, 32, 11, 700)
+        status = item.completed_at + " 完成" if item.completed else f"{item.due_time} 截止"
+        status_label = make_label(row, status, 584, 12, 164, 32, 10, 700)
+        status_label.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
 
         star = QPushButton("★" if item.starred else "☆", row)
-        star.setGeometry(758, 12, 34, 34)
+        star.setGeometry(766, 12, 34, 34)
         star.setCursor(Qt.PointingHandCursor)
         star.setStyleSheet(
             f"QPushButton {{ background: transparent; color: {GOLD if item.starred else '#d0935f'};"
@@ -365,8 +380,9 @@ class TodoPanelWindow(QWidget):
         bg = "#fffaf2" if selected else "#fff7e9"
         return (
             "QPushButton {"
-            f"background-color: {bg}; color: #102943; border: 2px solid {border}; border-radius: 8px;"
-            "font-family: 'Microsoft YaHei'; font-size: 13pt; font-weight: 900; padding: 8px 12px;"
+            f"background-color: {bg}; color: #102943; border: 2px solid {border};"
+            "border-right: 4px solid #8b6a4e; border-bottom: 4px solid #8b6a4e; border-radius: 8px;"
+            "font-family: 'Microsoft YaHei'; font-size: 12pt; font-weight: 900; padding: 7px 10px;"
             "}"
             "QPushButton:hover { background-color: #fffaf2; }"
         )
