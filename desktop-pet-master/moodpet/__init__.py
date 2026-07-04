@@ -1,0 +1,1 @@
+"""MoodPet feature modules."""

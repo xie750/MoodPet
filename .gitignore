@@ -1,0 +1,5 @@
+deepface/
+desktop-pet-master/models/
+desktop-pet-master/logs/
+desktop-pet-master/__pycache__/
+desktop-pet-master/**/__pycache__/
