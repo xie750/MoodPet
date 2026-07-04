@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pet PoC</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        background: transparent;
+        overflow: hidden;
+        font-family: "Segoe UI", sans-serif;
+        user-select: none;
+      }
+
+      .pet-shell {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        -webkit-app-region: drag;
+      }
+
+      .pet {
+        width: 156px;
+        height: 156px;
+        border-radius: 48% 52% 46% 54%;
+        background: #8bd3dd;
+        box-shadow: 0 16px 36px rgba(26, 44, 52, 0.22);
+        display: grid;
+        place-items: center;
+        position: relative;
+        transition: transform 180ms ease, background 180ms ease;
+      }
+
+      .pet::before,
+      .pet::after {
+        content: "";
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #1d2b2f;
+        position: absolute;
+        top: 58px;
+      }
+
+      .pet::before {
+        left: 48px;
+      }
+
+      .pet::after {
+        right: 48px;
+      }
+
+      .mouth {
+        width: 42px;
+        height: 22px;
+        border-bottom: 5px solid #1d2b2f;
+        border-radius: 0 0 42px 42px;
+        margin-top: 42px;
+      }
+
+      .bubble {
+        position: absolute;
+        top: 8px;
+        left: 18px;
+        right: 18px;
+        min-height: 34px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.92);
+        color: #263238;
+        font-size: 13px;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 8px 20px rgba(30, 50, 60, 0.16);
+      }
+
+      .actions {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        -webkit-app-region: no-drag;
+      }
+
+      button {
+        border: 0;
+        border-radius: 8px;
+        padding: 7px 10px;
+        background: #ffffff;
+        color: #263238;
+        box-shadow: 0 4px 12px rgba(30, 50, 60, 0.14);
+        cursor: pointer;
+      }
+
+      .happy {
+        background: #ffd166;
+        transform: translateY(-4px);
+      }
+
+      .care {
+        background: #b8e0d2;
+      }
+
+      .sleep {
+        background: #c8c7ff;
+        transform: scale(0.94);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="pet-shell">
+      <div class="bubble" id="bubble">idle</div>
+      <div class="pet idle" id="pet"><div class="mouth"></div></div>
+      <div class="actions">
+        <button id="happy">Happy</button>
+        <button id="panel">Panel</button>
+      </div>
+    </main>
+    <script>
+      const pet = document.getElementById("pet");
+      const bubble = document.getElementById("bubble");
+
+      function applyState(state) {
+        pet.className = `pet ${state}`;
+        bubble.textContent = state;
+      }
+
+      document.getElementById("happy").addEventListener("click", () => {
+        window.petPocApi.setPetState("happy");
+      });
+
+      document.getElementById("panel").addEventListener("click", () => {
+        window.petPocApi.openPanel();
+      });
+
+      window.petPocApi.onPetStateChanged(applyState);
+    </script>
+  </body>
+</html>
+

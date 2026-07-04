@@ -1,0 +1,15 @@
+{
+  "name": "poc-camera-mediapipe",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1"
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "^0.10.17",
+    "vite": "^5.4.0"
+  },
+  "devDependencies": {}
+}
+

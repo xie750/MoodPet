@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SQLite IPC PoC</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: #f6f8fb;
+        color: #263238;
+      }
+
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 28px;
+      }
+
+      form {
+        display: flex;
+        gap: 8px;
+      }
+
+      input {
+        flex: 1;
+        border: 1px solid #c7d1d8;
+        border-radius: 8px;
+        padding: 10px 12px;
+      }
+
+      button {
+        border: 0;
+        border-radius: 8px;
+        padding: 10px 12px;
+        background: #247b7b;
+        color: white;
+        cursor: pointer;
+      }
+
+      li {
+        margin: 10px 0;
+      }
+
+      .done {
+        color: #75838c;
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>SQLite IPC PoC</h1>
+      <form id="form">
+        <input id="title" placeholder="New task" maxlength="80" />
+        <button>Create</button>
+      </form>
+      <ul id="tasks"></ul>
+    </main>
+    <script>
+      const form = document.getElementById("form");
+      const title = document.getElementById("title");
+      const tasks = document.getElementById("tasks");
+
+      async function refresh() {
+        const result = await window.sqlitePocApi.tasks.listToday();
+        tasks.innerHTML = "";
+        if (!result.ok) {
+          tasks.textContent = result.error.message;
+          return;
+        }
+        result.data.forEach((task) => {
+          const li = document.createElement("li");
+          li.className = task.status === "done" ? "done" : "";
+          li.textContent = `${task.title} (${task.status}) `;
+          if (task.status !== "done") {
+            const button = document.createElement("button");
+            button.textContent = "Complete";
+            button.addEventListener("click", async () => {
+              await window.sqlitePocApi.tasks.complete(task.id);
+              refresh();
+            });
+            li.appendChild(button);
+          }
+          tasks.appendChild(li);
+        });
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await window.sqlitePocApi.tasks.create({ title: title.value });
+        title.value = "";
+        refresh();
+      });
+
+      refresh();
+    </script>
+  </body>
+</html>
+

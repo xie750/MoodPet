@@ -1,0 +1,623 @@
+.app-shell-preview {
+  --shell-bg: #f7faf8;
+  --shell-panel: #ffffff;
+  --shell-soft: #eef8f4;
+  --shell-warm: #fff7e8;
+  --shell-text: #1f2a2e;
+  --shell-secondary-text: #5e6b70;
+  --shell-muted-text: #7d8b8f;
+  --shell-border: #dce7e2;
+  --shell-primary: #55bfa3;
+  --shell-primary-hover: #49aa91;
+  --shell-secondary: #7cb7e8;
+  --shell-reward: #f4b95f;
+  --shell-focus: #3a8dff;
+  min-height: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  background: var(--shell-bg);
+  color: var(--shell-text);
+  font-family: "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+}
+
+.app-shell-preview-dark {
+  --shell-bg: #111817;
+  --shell-panel: #182220;
+  --shell-soft: #20312d;
+  --shell-warm: #332a1d;
+  --shell-text: #edf5f2;
+  --shell-secondary-text: #b8c7c2;
+  --shell-muted-text: #81918c;
+  --shell-border: #2b3c38;
+  --shell-primary: #72d6bd;
+  --shell-primary-hover: #88e3cc;
+  --shell-secondary: #8bc7f2;
+  --shell-reward: #f0c36d;
+  --shell-focus: #77a9ff;
+}
+
+.app-shell-preview * {
+  box-sizing: border-box;
+}
+
+.app-shell-preview button,
+.app-shell-preview input {
+  font: inherit;
+}
+
+.app-shell-preview button {
+  min-height: 36px;
+  border: 0;
+  cursor: pointer;
+}
+
+.app-shell-preview button:focus-visible,
+.app-shell-preview input:focus-visible {
+  outline: 2px solid var(--shell-focus);
+  outline-offset: 2px;
+}
+
+.app-shell-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 1180px;
+  margin: 0 auto 20px;
+}
+
+.app-shell-kicker,
+.app-shell-section-label {
+  margin: 0 0 6px;
+  color: var(--shell-primary);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+.app-shell-header h1,
+.app-shell-inspector h2,
+.app-shell-panel h2 {
+  margin: 0;
+}
+
+.app-shell-header h1 {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.app-shell-header p {
+  max-width: 620px;
+  margin: 8px 0 0;
+  color: var(--shell-secondary-text);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.app-shell-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.app-shell-secondary-button,
+.app-shell-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+  color: var(--shell-text);
+  background: var(--shell-panel);
+  box-shadow: inset 0 0 0 1px var(--shell-border);
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.app-shell-secondary-button {
+  padding: 0 14px;
+}
+
+.app-shell-icon-button {
+  width: 40px;
+  padding: 0;
+}
+
+.app-shell-secondary-button:hover,
+.app-shell-icon-button:hover {
+  background: var(--shell-soft);
+}
+
+.app-shell-secondary-button:active,
+.app-shell-icon-button:active,
+.app-shell-panel nav button:active,
+.app-shell-quick-menu button:active,
+.app-shell-tray-list button:active {
+  transform: scale(0.98);
+}
+
+.app-shell-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 20px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.app-shell-desktop {
+  position: relative;
+  min-height: 640px;
+  overflow: hidden;
+  border: 1px solid var(--shell-border);
+  border-radius: 12px;
+  background:
+    linear-gradient(90deg, rgba(85, 191, 163, 0.08) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(124, 183, 232, 0.08) 1px, transparent 1px),
+    var(--shell-soft);
+  background-size: 32px 32px;
+}
+
+.app-shell-screen-label {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  color: var(--shell-muted-text);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.app-shell-pet {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: var(--shell-text);
+  background: transparent;
+  touch-action: none;
+  user-select: none;
+}
+
+.app-shell-pet-shadow {
+  position: absolute;
+  bottom: 20px;
+  width: 104px;
+  height: 20px;
+  border-radius: 999px;
+  background: rgba(31, 42, 46, 0.16);
+  filter: blur(8px);
+}
+
+.app-shell-pet-body {
+  position: relative;
+  display: block;
+  width: 142px;
+  height: 112px;
+  border-radius: 48% 52% 44% 56%;
+  background: linear-gradient(145deg, #ffffff 0%, #dff7f0 72%);
+  box-shadow: 0 14px 30px rgba(31, 42, 46, 0.16);
+  animation: app-shell-pet-breathe 2600ms ease-in-out infinite;
+}
+
+.app-shell-pet-body::before,
+.app-shell-pet-body::after {
+  position: absolute;
+  content: "";
+  bottom: 12px;
+  width: 54px;
+  height: 48px;
+  border-radius: 50%;
+  background: inherit;
+}
+
+.app-shell-pet-body::before {
+  left: -18px;
+}
+
+.app-shell-pet-body::after {
+  right: -18px;
+}
+
+.app-shell-pet-face {
+  position: absolute;
+  top: 44px;
+  left: 50%;
+  z-index: 1;
+  width: 58px;
+  height: 30px;
+  transform: translateX(-50%);
+  border-bottom: 4px solid #1f2a2e;
+  border-radius: 0 0 999px 999px;
+}
+
+.app-shell-pet-face::before,
+.app-shell-pet-face::after {
+  position: absolute;
+  top: -5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1f2a2e;
+  content: "";
+}
+
+.app-shell-pet-face::before {
+  left: 8px;
+}
+
+.app-shell-pet-face::after {
+  right: 8px;
+}
+
+.app-shell-pet-caption {
+  position: absolute;
+  top: 12px;
+  min-width: 112px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--shell-panel);
+  box-shadow: 0 8px 24px rgba(31, 42, 46, 0.12);
+  color: var(--shell-secondary-text);
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.app-shell-quick-menu {
+  position: absolute;
+  z-index: 4;
+  width: 180px;
+  padding: 6px;
+  border: 1px solid var(--shell-border);
+  border-radius: 10px;
+  background: var(--shell-panel);
+  box-shadow: 0 10px 28px rgba(31, 42, 46, 0.16);
+  animation: app-shell-menu-in 180ms ease-out;
+}
+
+.app-shell-quick-menu button,
+.app-shell-tray-list button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-start;
+  border-radius: 8px;
+  padding: 0 10px;
+  color: var(--shell-text);
+  background: transparent;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.app-shell-quick-menu button:hover,
+.app-shell-tray-list button:hover {
+  background: var(--shell-soft);
+}
+
+.app-shell-menu-divider {
+  height: 1px;
+  margin: 6px;
+  background: var(--shell-border);
+}
+
+.app-shell-panel {
+  position: absolute;
+  right: 24px;
+  top: 48px;
+  width: min(520px, calc(100% - 300px));
+  min-width: 360px;
+  min-height: 500px;
+  overflow: hidden;
+  border: 1px solid var(--shell-border);
+  border-radius: 12px;
+  background: var(--shell-panel);
+  box-shadow: 0 18px 48px rgba(31, 42, 46, 0.16);
+}
+
+.app-shell-panel-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 14px 0 18px;
+  border-bottom: 1px solid var(--shell-border);
+}
+
+.app-shell-panel-titlebar span {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.app-shell-panel-titlebar small {
+  display: block;
+  color: var(--shell-muted-text);
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.app-shell-panel-titlebar button {
+  display: grid;
+  width: 36px;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--shell-secondary-text);
+  background: transparent;
+}
+
+.app-shell-panel-titlebar button:hover {
+  background: var(--shell-soft);
+}
+
+.app-shell-panel-layout {
+  display: grid;
+  grid-template-columns: 116px minmax(0, 1fr);
+  min-height: 448px;
+}
+
+.app-shell-panel nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 10px;
+  border-right: 1px solid var(--shell-border);
+  background: color-mix(in srgb, var(--shell-soft) 70%, transparent);
+}
+
+.app-shell-panel nav button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-start;
+  min-height: 40px;
+  padding: 0 10px;
+  border-radius: 8px;
+  color: var(--shell-secondary-text);
+  background: transparent;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.app-shell-panel nav button:hover {
+  color: var(--shell-text);
+  background: var(--shell-panel);
+}
+
+.app-shell-panel nav button.active {
+  color: var(--shell-primary);
+  background: var(--shell-soft);
+  font-weight: 700;
+}
+
+.app-shell-panel main {
+  padding: 22px;
+}
+
+.app-shell-panel main h2 {
+  font-size: 22px;
+  line-height: 30px;
+}
+
+.app-shell-panel main p {
+  max-width: 360px;
+  margin: 8px 0 18px;
+  color: var(--shell-secondary-text);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.app-shell-status-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.app-shell-status-grid div {
+  min-height: 88px;
+  padding: 14px;
+  border: 1px solid var(--shell-border);
+  border-radius: 8px;
+  background: var(--shell-soft);
+}
+
+.app-shell-status-grid span,
+.app-shell-status-grid strong {
+  display: block;
+}
+
+.app-shell-status-grid span {
+  color: var(--shell-muted-text);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.app-shell-status-grid strong {
+  margin-top: 8px;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.app-shell-inspector {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.app-shell-inspector section {
+  padding: 16px;
+  border: 1px solid var(--shell-border);
+  border-radius: 8px;
+  background: var(--shell-panel);
+}
+
+.app-shell-section-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.app-shell-section-heading h2 {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.app-shell-inspector dl {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+
+.app-shell-inspector dl div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--shell-secondary-text);
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.app-shell-inspector dt,
+.app-shell-inspector dd {
+  margin: 0;
+}
+
+.app-shell-inspector dd {
+  color: var(--shell-text);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.app-shell-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  color: var(--shell-text);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.app-shell-toggle input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--shell-primary);
+}
+
+.app-shell-tray-list {
+  display: grid;
+  gap: 6px;
+}
+
+.app-shell-tray-list button {
+  min-height: 40px;
+}
+
+.app-shell-tray-list button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.app-shell-last-action {
+  display: block;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.app-shell-status-text {
+  margin: 8px 0 0;
+  color: var(--shell-secondary-text);
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.app-shell-icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+@keyframes app-shell-pet-breathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes app-shell-menu-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell-preview *,
+  .app-shell-preview *::before,
+  .app-shell-preview *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+@media (max-width: 960px) {
+  .app-shell-body {
+    grid-template-columns: 1fr;
+  }
+
+  .app-shell-inspector {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .app-shell-preview {
+    padding: 16px;
+  }
+
+  .app-shell-header {
+    flex-direction: column;
+  }
+
+  .app-shell-desktop {
+    min-height: 620px;
+  }
+
+  .app-shell-panel {
+    right: 12px;
+    left: 12px;
+    top: 280px;
+    width: auto;
+    min-width: 0;
+  }
+
+  .app-shell-panel-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .app-shell-panel nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-right: 0;
+    border-bottom: 1px solid var(--shell-border);
+  }
+
+  .app-shell-inspector {
+    grid-template-columns: 1fr;
+  }
+}

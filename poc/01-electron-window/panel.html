@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Panel PoC</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: #f6f8fb;
+        color: #243238;
+      }
+
+      main {
+        padding: 32px;
+      }
+
+      button {
+        border: 0;
+        border-radius: 8px;
+        padding: 10px 14px;
+        margin-right: 10px;
+        background: #247b7b;
+        color: white;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Companion Panel PoC</h1>
+      <p>This panel validates safe window creation and preload IPC.</p>
+      <button onclick="window.petPocApi.setPetState('idle')">Idle</button>
+      <button onclick="window.petPocApi.setPetState('care')">Care</button>
+      <button onclick="window.petPocApi.setPetState('sleep')">Sleep</button>
+    </main>
+  </body>
+</html>
+

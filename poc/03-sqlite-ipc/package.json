@@ -1,0 +1,16 @@
+{
+  "name": "poc-sqlite-ipc",
+  "version": "0.1.0",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.1.2"
+  },
+  "devDependencies": {
+    "electron": "^32.0.0"
+  }
+}
+

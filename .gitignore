@@ -1,0 +1,8 @@
+node_modules/
+app/node_modules/
+app/out/
+app/.local/
+poc/**/node_modules/
+poc/**/.local/
+*.log
+*.tsbuildinfo
